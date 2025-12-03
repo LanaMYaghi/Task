@@ -24,6 +24,11 @@ class RoleSeeder extends Seeder
             'guard_name' => 'api',
         ]);
 
+        $userRole = Role::firstOrCreate([
+            'name' => 'midAdmin',
+            'guard_name' => 'api',
+        ]);
+
         $permissions = [
             'view_users',
             'edit_users',

@@ -25,6 +25,11 @@ class User extends Authenticatable implements JWTSubject
         'password',
     ];
 
+    public function roleRequests()
+    {
+        return $this->hasMany(RoleRequest::class);
+    }
+    
     public function getJWTIdentifier()
     {
         return $this->getKey();

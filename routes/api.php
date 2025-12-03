@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\RoleRequestController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,10 +29,17 @@ Route::group(['middleware' => ['auth:api', 'refresh.token']], function () {
     Route::delete('deleteMyProfile', [UserController::class, 'deleteMyProfile']);
 
 
+    Route::post('storeRequest', [RoleRequestController::class, 'store']);
+    Route::get('showMyRequests', [RoleRequestController::class, 'myRequests']);
 
 
     Route::group(['middleware' => ['role:Admin']], function () {
         Route::get('indexUsers',         [UserController::class, 'index']);
         Route::delete('destroyUsers/{id}', [UserController::class, 'destroy']);
+
+        // المسؤول يرى جميع الطلبات
+        Route::get('showAllRequests', [RoleRequestController::class, 'index']);
+        // المسؤول يوافق أو يرفض
+        Route::post('answerRequest/{id}', [RoleRequestController::class, 'update']);
     });
 });
